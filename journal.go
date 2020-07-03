@@ -25,7 +25,10 @@ func addLogFilters(journal *sdjournal.Journal, config *config) {
 		for _, unitRaw := range unitsRaw {
 			unit := strings.TrimSpace(unitRaw)
 			if unit != "" {
-				journal.AddMatch("SYSLOG_IDENTIFIER=" + unit)
+				if !strings.HasSuffix(unit, ".service") {
+					unit += ".service"
+				}
+				journal.AddMatch("_SYSTEMD_UNIT=" + unit)
 				journal.AddDisjunction()
 			}
 		}
