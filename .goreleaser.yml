@@ -1,0 +1,17 @@
+before:
+  hooks:
+    - go mod download
+
+builds:
+- goos:
+    - linux
+  goarch:
+    - amd64
+
+archives:
+- replacements:
+    linux: Linux
+    amd64: x86_64
+
+changelog:
+  sort: asc
