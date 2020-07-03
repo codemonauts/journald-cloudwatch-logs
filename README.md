@@ -63,6 +63,12 @@ state_file = "/var/lib/journald-cloudwatch-logs/state"
 
 The following configuration settings are supported:
 
+* `log_group`: (**Required**) The name of the cloudwatch log group to write logs into. This log group must
+  be created before running the program.
+
+* `state_file`: (**Required**) Path to a location where the program can write, and later read, some
+  state it needs to preserve between runs. (The format of this file is an implementation detail.)
+
 * `aws_region`: (Optional) The AWS region whose CloudWatch Logs API will be written to. If not provided,
   this defaults to the region where the host EC2 instance is running.
 
@@ -72,9 +78,6 @@ The following configuration settings are supported:
 * `journal_dir`: (Optional) Override the directory where the systemd journal can be found. This is
   useful in conjunction with remote log aggregation, to work with journals synced from other systems.
   The default is to use the local system's journal.
-
-* `log_group`: (Required) The name of the cloudwatch log group to write logs into. This log group must
-  be created before running the program.
 
 * `log_priority`: (Optional) The highest priority of the log messages to read (on a 0-7 scale). This defaults
     to DEBUG (all messages). This has a behaviour similar to `journalctl -p <priority>`. At the moment, only
@@ -92,9 +95,6 @@ The following configuration settings are supported:
   the EC2 instance id. Each running instance of this application (along with any other applications
   writing logs into the same log group) must have a unique `log_stream` value. If the given log stream
   doesn't exist then it will be created before writing the first set of journal events.
-
-* `state_file`: (Required) Path to a location where the program can write, and later read, some
-  state it needs to preserve between runs. (The format of this file is an implementation detail.)
 
 * `buffer_size`: (Optional) The size of the local event buffer where journal events will be kept
   in order to write batches of events to the CloudWatch Logs API. The default is 100. A batch of
