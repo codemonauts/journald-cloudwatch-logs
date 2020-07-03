@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/coreos/go-systemd/sdjournal"
 	"strconv"
 	"strings"
+
+	"github.com/coreos/go-systemd/sdjournal"
 )
 
 func addLogFilters(journal *sdjournal.Journal, config *config) {
